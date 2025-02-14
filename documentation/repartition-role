@@ -6,3 +6,8 @@ Tache 3: Conception_UML Diagramme de cas d'utilisation : Mbaye SYLLA
 Tache 4:Conception_UMLl Diagramme de classe : Taiba SAKHO
 
 Semaine 2
+Tache 1: Configuration de l'environnement backend(LARAVEL) : Taiba SAKHO
+Tache 2: Developpement des API REST pour la gestion des utilisateurs et electeurs
+Tache 3: Mise en place du frontend (ANGULAR pour BackOffice et REACT pour FrontOffice)
+Tache 4: Creation de la page d'importation des electeurs et controle du fichier CVS
+Tache 5: Debut du developpement de l'authentification 
