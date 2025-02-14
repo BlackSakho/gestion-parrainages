@@ -1,0 +1,35 @@
+Semaine 2
+
+
+Route::post('/process-electeurs/{fichier_id}', function ($fichier_id) {
+$fichier = FichierElectoral::findOrFail($fichier_id);
+
+// Lire le fichier CSV
+$filePath = storage_path('app/uploads/' . $fichier->nom_fichier);
+$csv = Reader::createFromPath($filePath, 'r');
+$csv->setHeaderOffset(0);
+
+$records = $csv->getRecords();
+
+// Insérer les électeurs dans la table temporaire
+foreach ($records as $record) {
+ElecteurTemps::create([
+'NumeroCarteElecteur' => $record['NumeroCarteElecteur'],
+'CIN' => $record['CIN'],
+'Nom' => $record['Nom'],
+'Prenom' => $record['Prenom'],
+'DateNaissance' => $record['DateNaissance'],
+'BureauVote' => $record['BureauVote'],
+'Email' => $record['Email'],
+'Telephone' => $record['Telephone'],
+'IDFichier' => $fichier->id
+]);
+}
+
+// Mettre à jour le statut du fichier
+$fichier->update(['statut' => 'Validé']);
+
+return response()->json(['message' => 'Importation des électeurs réussie !']);
+});{ path: 'accueil', loadComponent: () => import('./components/accueil/accueil.component').then(m =>
+m.AccueilComponent), canActivate: [AuthGuard] },
+{ path: '**', redirectTo: 'login' },
