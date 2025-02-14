@@ -9,5 +9,6 @@ class FichierElectoral extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['utilisateur_id', 'nom_fichier', 'checksum', 'statut'];
+    protected $table = 'FichierElectoral';
+    protected $fillable = [ 'NomFichier', 'Checksum', 'Statut', 'DateImportation', 'EtatUploadElecteurs'];
 }

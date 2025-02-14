@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ElecteurTemps', function (Blueprint $table) {
+        Schema::create('Electeurtemps', function (Blueprint $table) {
             $table->id();
             $table->string('NumeroCarteElecteur')->unique();
             $table->string('CIN')->unique();
@@ -21,9 +21,10 @@ return new class extends Migration
             $table->string('BureauVote');
             $table->string('Email')->unique();
             $table->string('Telephone')->unique();
-            $table->unsignedBigInteger('IDFichier');
+            $table->unsignedBigInteger('IDFichier'); // ✅ Doit correspondre au type de id de FichierElectoral
             $table->timestamps();
-            $table->foreign('IDFichier')->references('IDFichier')->on('FichierElectoral')->onDelete('CASCADE');
+
+            $table->foreign('IDFichier')->references('id')->on('FichierElectoral')->onDelete('CASCADE');
         });
     }
 

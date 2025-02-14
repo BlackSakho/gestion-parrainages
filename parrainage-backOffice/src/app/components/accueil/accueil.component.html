@@ -1,0 +1,28 @@
+<h1>Bienvenue au BackOffice - Gestion des Parrainages</h1>
+
+<div class="grid-container">
+  <div class="card" (click)="navigateTo('/periode-parrainage')">
+    <h3>📅 Gérer la Période de Parrainage</h3>
+    <p>Ouvrir et fermer la période de parrainage.</p>
+  </div>
+
+  <div class="card" (click)="navigateTo('/fichiers')">
+    <h3>📥 Importer la Liste des Électeurs</h3>
+    <p>Importer un fichier CSV et valider les électeurs.</p>
+  </div>
+
+  <div class="card" (click)="navigateTo('/candidats')">
+    <h3>👤 Gérer les Candidats</h3>
+    <p>Ajouter et modifier les informations des candidats.</p>
+  </div>
+
+  <div class="card" (click)="navigateTo('/parrainages')">
+    <h3>📊 Suivi des Parrainages</h3>
+    <p>Voir les statistiques des parrainages en temps réel.</p>
+  </div>
+
+  <div class="card" (click)="navigateTo('/dashboard')">
+    <h3>📈 Tableau de Bord</h3>
+    <p>Consulter les statistiques globales des candidats.</p>
+  </div>
+</div>

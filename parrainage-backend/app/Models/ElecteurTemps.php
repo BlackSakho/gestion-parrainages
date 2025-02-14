@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ElecteurTemp extends Model
+class ElecteurTemps extends Model
 {
     use HasFactory;
+
+    protected $table = 'electeurtemps'; 
 
     protected $fillable = [
         'NumeroCarteElecteur', 'CIN', 'Nom', 'Prenom',
