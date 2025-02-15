@@ -5,20 +5,17 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class GestionCandidatsService {
-  private apiUrl = 'http://127.0.0.1:8000/api/candidats';
+export class ImportationElecteursService {
+  private apiUrl = 'http://127.0.0.1:8000/api/electeurs/upload';
 
   constructor(private http: HttpClient) {}
 
-  getCandidats(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
-  }
+  uploadFichier(file: File, checksum: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('checksum', checksum);
 
-  ajouterCandidat(candidat: any): Observable<any> {
-    return this.http.post(this.apiUrl, candidat);
-  }
-
-  supprimerCandidat(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    console.log('Envoi du fichier avec checksum:', checksum);
+    return this.http.post(this.apiUrl, formData);
   }
 }

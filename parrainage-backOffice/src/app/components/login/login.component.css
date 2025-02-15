@@ -13,3 +13,11 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
+h2 {
+  text-align: center;
+}
+a{
+  text-align: center;
+  color: #007bff;
+  cursor: pointer;
+}

@@ -35,14 +35,6 @@ export class AuthService {
     });
   }
 
-  isAuthenticated(): Observable<boolean> {
-    return this.isAuthenticatedSubject.asObservable();
-  }
-
-  private hasToken(): boolean {
-    return !!localStorage.getItem(this.tokenKey);
-  }
-
   getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem(this.tokenKey);
     return new HttpHeaders({ Authorization: `Bearer ${token}` });

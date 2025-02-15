@@ -30,6 +30,7 @@ ElecteurTemps::create([
 $fichier->update(['statut' => 'Validé']);
 
 return response()->json(['message' => 'Importation des électeurs réussie !']);
-});{ path: 'accueil', loadComponent: () => import('./components/accueil/accueil.component').then(m =>
+});
+{ path: 'accueil', loadComponent: () => import('./components/accueil/accueil.component').then(m =>
 m.AccueilComponent), canActivate: [AuthGuard] },
 { path: '**', redirectTo: 'login' },

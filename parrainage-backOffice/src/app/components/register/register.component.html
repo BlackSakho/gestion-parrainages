@@ -1,9 +1,10 @@
 <h2>📝 Inscription</h2>
-<form (submit)="register()">
-  <input type="text" [(ngModel)]="name" placeholder="Nom" required>
-  <input type="text" [(ngModel)]="Prenom" placeholder="Prénom" required>
-  <input type="email" [(ngModel)]="email" placeholder="Email" required>
-  <input type="password" [(ngModel)]="password" placeholder="Mot de passe" required>
+<form (ngSubmit)="register()">
+  <input type="text" [(ngModel)]="users.name" name="name" placeholder="Nom" required>
+  <input type="text" [(ngModel)]="users.Prenom" name="Prenom" placeholder="Prénom" required>
+  <input type="email" [(ngModel)]="users.email" name="email" placeholder="Email" required>
+  <input type="password" [(ngModel)]="users.password" name="password" placeholder="Mot de passe" required>
   <button type="submit">S'inscrire</button>
 </form>
+<p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
 <a routerLink="/login">Déjà un compte ? Se connecter</a>

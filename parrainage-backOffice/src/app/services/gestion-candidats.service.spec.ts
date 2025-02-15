@@ -1,24 +1,16 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { TestBed } from '@angular/core/testing';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class GestionCandidatsService {
-  private apiUrl = 'http://127.0.0.1:8000/api/candidats';
+import { GestionCandidatsService } from './gestion-candidats.service';
 
-  constructor(private http: HttpClient) {}
+describe('GestionCandidatsService', () => {
+  let service: GestionCandidatsService;
 
-  getCandidats(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
-  }
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(GestionCandidatsService);
+  });
 
-  ajouterCandidat(candidat: any): Observable<any> {
-    return this.http.post(this.apiUrl, candidat);
-  }
-
-  supprimerCandidat(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
-  }
-}
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});

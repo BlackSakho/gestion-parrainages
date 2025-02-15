@@ -12,18 +12,30 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule]
 })
 export class RegisterComponent {
-  name = '';
-  Prenom = '';
-  email = '';
-  password = '';
+  users = {
+    name: '',
+    prenom: '',
+    email: '',
+    password: ''
+  };
+  errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   register() {
-    this.authService.register({ name: this.name, Prenom: this.Prenom, email: this.email, password: this.password })
-      .subscribe({
-        next: () => this.router.navigate(['/login']),
-        error: () => alert('Échec de l’inscription ❌')
-      });
+    console.log('Données envoyées:', this.users); // ✅ Ajoute ce log pour voir les valeurs
+
+    if (!this.users.name || !this.users.prenom || !this.users.email || !this.users.password) {
+      this.errorMessage = 'Tous les champs sont obligatoires ❌';
+      return;
+    }
+
+    this.authService.register(this.users).subscribe({
+      next: () => this.router.navigate(['/login']),
+      error: (err) => {
+        this.errorMessage = 'Inscription échouée ❌';
+        console.error('Erreur:', err);
+      }
+    });
   }
 }
