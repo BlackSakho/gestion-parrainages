@@ -12,14 +12,11 @@ import { AuthGuard } from './guards/auth.guard';
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'accueil', loadComponent: () => import('./components/accueil/accueil.component').then(m =>m.AccueilComponent), canActivate: [AuthGuard] },
-  { path: '**', redirectTo: 'login' },
-  { path: 'accueil', component: AccueilComponent },
-  { path: 'periode-parrainage', component: PeriodeParrainageComponent },
-  { path: 'fichiers', component: ImportationElecteursComponent },
-  { path: 'candidats', component: GestionCandidatsComponent },
-  { path: 'parrainages', component: SuiviParrainagesComponent },
-  { path: 'dashboard', component: DashboardComponent }
-
-
+  { path: 'accueil', component: AccueilComponent, canActivate: [AuthGuard] },
+  { path: 'periode-parrainage', component: PeriodeParrainageComponent, canActivate: [AuthGuard] },
+  { path: 'fichiers', component: ImportationElecteursComponent, canActivate: [AuthGuard] },
+  { path: 'candidats', component: GestionCandidatsComponent, canActivate: [AuthGuard] },
+  { path: 'parrainages', component: SuiviParrainagesComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: 'login' }
 ];

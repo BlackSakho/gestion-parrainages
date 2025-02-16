@@ -1,11 +1,16 @@
-
-<nav>
-  <a routerLink="/accueil">🏠 Accueil</a>
-  <a routerLink="/periode-parrainage">📅 Période de Parrainage</a>
-  <a routerLink="/fichiers">📥 Importation Électeurs</a>
-  <a routerLink="/candidats">👤 Gestion Candidats</a>
-  <a routerLink="/parrainages">📊 Suivi Parrainages</a>
-  <a routerLink="/dashboard">📈 Tableau de Bord</a>
+<nav class="navbar">
+  <div class="navbar-links">
+    <a routerLink="/accueil">🏠 Accueil</a>
+    <a routerLink="/periode-parrainage">📅 Période de Parrainage</a>
+    <a routerLink="/fichiers">📥 Importation Électeurs</a>
+    <a routerLink="/candidats">👤 Gestion Candidats</a>
+    <a routerLink="/parrainages">📊 Suivi Parrainages</a>
+    <a routerLink="/dashboard">📈 Tableau de Bord</a>
+  </div>
+  <div class="navbar-profile">
+    <a routerLink="/profil">👤 Profil</a>
+    <a (click)="logout()">🚪 Déconnexion</a>
+  </div>
 </nav>
 
 <router-outlet></router-outlet>

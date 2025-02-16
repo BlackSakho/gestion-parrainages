@@ -14,11 +14,13 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  register(user: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, user);
+  register(user: { name: string, prenom: string, email: string, password: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, user).pipe(
+      tap(response => console.log('Registration response:', response))
+    );
   }
 
-  login(credentials: any): Observable<any> {
+  login(credentials: { email: string, password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((response: any) => {
         localStorage.setItem(this.tokenKey, response.token);
@@ -33,6 +35,14 @@ export class AuthService {
       this.isAuthenticatedSubject.next(false);
       this.router.navigate(['/login']);
     });
+  }
+
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem(this.tokenKey);
+  }
+
+  private hasToken(): boolean {
+    return !!localStorage.getItem(this.tokenKey);
   }
 
   getAuthHeaders(): HttpHeaders {

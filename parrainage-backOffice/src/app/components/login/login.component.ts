@@ -9,18 +9,25 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule] // ✅ Ajout de FormsModule pour ngModel
 })
 export class LoginComponent {
-  email = '';
-  password = '';
+  user = { email: '', password: '' };
+  errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   login() {
-    this.authService.login({ email: this.email, password: this.password }).subscribe({
-      next: () => this.router.navigate(['/dashboard']),
-      error: () => alert('Échec de connexion ❌')
+    console.log('Logging in with user:', this.user);
+    this.authService.login(this.user).subscribe({
+      next: (response) => {
+        console.log('Login successful:', response);
+        this.router.navigate(['/accueil']);
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+        this.errorMessage = 'Email ou mot de passe incorrect ❌';
+      }
     });
   }
 }
