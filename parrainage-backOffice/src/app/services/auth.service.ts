@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+// import { FetchHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -37,12 +38,15 @@ export class AuthService {
     });
   }
 
-  isAuthenticated(): boolean {
-    return !!localStorage.getItem(this.tokenKey);
+  isAuthenticated(): Observable<boolean> {
+    return this.isAuthenticatedSubject.asObservable(); // ✅ Retourne un Observable
   }
 
   private hasToken(): boolean {
-    return !!localStorage.getItem(this.tokenKey);
+    if (typeof window !== 'undefined') { // ✅ Vérifie si on est côté client
+      return !!localStorage.getItem('authToken');
+    }
+    return false;
   }
 
   getAuthHeaders(): HttpHeaders {

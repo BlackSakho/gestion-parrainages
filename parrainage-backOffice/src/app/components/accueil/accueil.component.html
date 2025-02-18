@@ -1,28 +1,105 @@
-<h1>Bienvenue au BackOffice - Gestion des Parrainages</h1>
+<div class="container">
+  <header class="text-center" [@fadeIn]>
+    <h1 class="section-title">Système de Gestion des Parrainages</h1>
+    <p class="subtitle">Gérez efficacement vos parrainages électoraux</p>
+  </header>
 
-<div class="grid-container">
-  <div class="card" (click)="navigateTo('/periode-parrainage')">
-    <h3>📅 Gérer la Période de Parrainage</h3>
-    <p>Ouvrir et fermer la période de parrainage.</p>
-  </div>
+  <section class="feature-grid">
+    <mat-card class="card" [@cardAnimation]>
+      <mat-card-header>
+        <mat-icon>calendar_today</mat-icon>
+        <mat-card-title>Périodes</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Gérez les périodes de parrainage et leurs échéances</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" routerLink="/periodes">
+          Accéder
+        </button>
+      </mat-card-actions>
+    </mat-card>
 
-  <div class="card" (click)="navigateTo('/fichiers')">
-    <h3>📥 Importer la Liste des Électeurs</h3>
-    <p>Importer un fichier CSV et valider les électeurs.</p>
-  </div>
+    <mat-card class="card" [@cardAnimation]>
+      <mat-card-header>
+        <mat-icon>people</mat-icon>
+        <mat-card-title>Électeurs</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Suivez et gérez la base de données des électeurs</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" routerLink="/electeurs">
+          Accéder
+        </button>
+      </mat-card-actions>
+    </mat-card>
 
-  <div class="card" (click)="navigateTo('/candidats')">
-    <h3>👤 Gérer les Candidats</h3>
-    <p>Ajouter et modifier les informations des candidats.</p>
-  </div>
+    <mat-card class="card" [@cardAnimation]>
+      <mat-card-header>
+        <mat-icon>person</mat-icon>
+        <mat-card-title>Candidats</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Administrez les profils des candidats</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" routerLink="/candidats">
+          Accéder
+        </button>
+      </mat-card-actions>
+    </mat-card>
 
-  <div class="card" (click)="navigateTo('/parrainages')">
-    <h3>📊 Suivi des Parrainages</h3>
-    <p>Voir les statistiques des parrainages en temps réel.</p>
-  </div>
+    <mat-card class="card" [@cardAnimation]>
+      <mat-card-header>
+        <mat-icon>bar_chart</mat-icon>
+        <mat-card-title>Statistiques</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Visualisez les données et tendances</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" routerLink="/statistiques">
+          Accéder
+        </button>
+      </mat-card-actions>
+    </mat-card>
 
-  <div class="card" (click)="navigateTo('/dashboard')">
-    <h3>📈 Tableau de Bord</h3>
-    <p>Consulter les statistiques globales des candidats.</p>
-  </div>
+    <mat-card class="card" [@cardAnimation]>
+      <mat-card-header>
+        <mat-icon>description</mat-icon>
+        <mat-card-title>Documents</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Gérez les documents et formulaires</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" routerLink="/documents">
+          Accéder
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="card" [@cardAnimation]>
+      <mat-card-header>
+        <mat-icon>settings</mat-icon>
+        <mat-card-title>Paramètres</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Configurez les paramètres du système</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" routerLink="/parametres">
+          Accéder
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Système de Gestion des Parrainages</p>
+      <p>Contact : support&#64;parrainage.fr</p>
+    </div>
+  </footer>
 </div>

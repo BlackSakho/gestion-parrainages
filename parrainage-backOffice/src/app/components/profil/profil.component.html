@@ -1,0 +1,11 @@
+<h2>👤 Mon Profil</h2>
+<form (submit)="updateProfile()">
+  <input type="text" [(ngModel)]="user.name" name="name" placeholder="Nom" required>
+  <input type="text" [(ngModel)]="user.prenom" name="prenom" placeholder="Prénom" required>
+  <input type="email" [(ngModel)]="user.email" name="email" placeholder="Email" required>
+  <input type="password" [(ngModel)]="user.password" name="password" placeholder="Nouveau mot de passe">
+  <button type="submit">Mettre à jour</button>
+</form>
+
+<p *ngIf="successMessage" style="color: green;">{{ successMessage }}</p>
+<p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>

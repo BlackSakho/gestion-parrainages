@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\AuthController;
 use App\Models\HistoriqueUpload;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -35,6 +36,28 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->put('/profil/update', function (Request $request) {
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'prenom' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users,email,' . $request->user()->id,
+        'password' => 'nullable|string|min:6',
+    ]);
+
+    $user = $request->user();
+    $user->name = $request->name;
+    $user->prenom = $request->prenom;
+    $user->email = $request->email;
+
+    if ($request->password) {
+        $user->password = Hash::make($request->password);
+    }
+
+    $user->save();
+
+    return response()->json(['message' => 'Profil mis à jour avec succès ✅']);
+});
 
 Route::get('/electeurs', function () {
     return response()->json(Electeur::all());
@@ -119,17 +142,19 @@ Route::post('/electeurs/upload', function (Request $request) {
         $csv->setHeaderOffset(0); // Utiliser la première ligne comme en-tête
 
         foreach ($csv as $record) {
-            ElecteurTemps::create([
-                'NumeroCarteElecteur' => $record['NumeroCarteElecteur'], // Assurez-vous que les noms correspondent au CSV
-                'CIN' => $record['CIN'],
-                'Nom' => $record['Nom'],
-                'Prenom' => $record['Prenom'],
-                'DateNaissance' => $record['DateNaissance'],
-                'BureauVote' => $record['BureauVote'],
-                'Email' => $record['Email'],
-                'Telephone' => $record['Telephone'],
-                'IDFichier' => $fichier->id
-            ]);
+            if (!ElecteurTemps::where('NumeroCarteElecteur', $record['NumeroCarteElecteur'])->exists()) {
+                ElecteurTemps::create([
+                    'NumeroCarteElecteur' => $record['NumeroCarteElecteur'],
+                    'CIN' => $record['CIN'],
+                    'Nom' => $record['Nom'],
+                    'Prenom' => $record['Prenom'],
+                    'DateNaissance' => $record['DateNaissance'],
+                    'BureauVote' => $record['BureauVote'],
+                    'Email' => $record['Email'],
+                    'Telephone' => $record['Telephone'],
+                    'IDFichier' => $fichier->id
+                ]);
+            }
         }
     } catch (\Exception $e) {
         Log::error('Erreur lors du traitement du fichier CSV:', ['error' => $e->getMessage()]);
@@ -138,36 +163,7 @@ Route::post('/electeurs/upload', function (Request $request) {
 
     return response()->json(['message' => 'Fichier importé et analysé avec succès ✅']);
 });
-Route::post('/process-electeurs/{fichier_id}', function ($fichier_id) {
-    $fichier = FichierElectoral::findOrFail($fichier_id);
 
-    // Lire le fichier CSV
-    $filePath = storage_path('app/uploads/' . $fichier->nom_fichier);
-    $csv = Reader::createFromPath($filePath, 'r');
-    $csv->setHeaderOffset(0);
-
-    $records = $csv->getRecords();
-
-    // Insérer les électeurs dans la table temporaire
-    foreach ($records as $record) {
-        ElecteurTemps::create([
-            'NumeroCarteElecteur' => $record['NumeroCarteElecteur'],
-            'CIN' => $record['CIN'],
-            'Nom' => $record['Nom'],
-            'Prenom' => $record['Prenom'],
-            'DateNaissance' => $record['DateNaissance'],
-            'BureauVote' => $record['BureauVote'],
-            'Email' => $record['Email'],
-            'Telephone' => $record['Telephone'],
-            'IDFichier' => $fichier->id
-        ]);
-    }
-
-    // Mettre à jour le statut du fichier
-    $fichier->update(['statut' => 'Validé']);
-
-    return response()->json(['message' => 'Importation des électeurs réussie !']);
-});
 
 
 Route::get('/verifier-fichier/{fichier_id}', function ($fichier_id) {
