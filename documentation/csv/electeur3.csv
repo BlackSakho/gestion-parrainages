@@ -1,0 +1,6 @@
+NumeroCarteElecteur,CIN,Nom,Prenom,DateNaissance,Commune,BureauVote,Email,Telephone,LieuDeNaissance,Sexe
+123456789,1234567890123,DIOP,Aliou,1985-04-23,Dakar,Bureau 1,aliou.diop@example.com,778889900,Dakar,Masculin
+987654321,9876543210123,NDIAYE,Awa,1990-07-15,Thies,Bureau 2,awa.ndiaye@example.com,771122334,Thies,Feminin
+456789123,4567891230124,BA,Mamadou,1982-11-30,Kaolack,Bureau 3,mamadou.ba@example.com,770011223,Kaolack,Masculin
+567891234,5678912340123,SY,Fatou,1995-02-12,St-Louis,Bureau 4,fatou.sy@example.com,778856789,St-Louis,Feminin
+678912345,6789123450123,FALL,Moussa,1987-06-25,Ziguinchor,Bureau 5,moussa.fall@example.com,775667788,Ziguinchor,Masculin
