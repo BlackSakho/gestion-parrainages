@@ -1,0 +1,11 @@
+NumeroCarteElecteur,CIN,Nom,Prenom,DateNaissance,Commune,BureauVote,Email,Telephone,LieuDeNaissance,Sexe
+770001122,XY770001,Amandine,Petit,1990-05-10,Avignon,Bureau Z,amandine.petit@example.com,0771234567,Avignon,Féminin
+770002233,XY770002,Rémi,Leclerc,1988-02-20,Toulouse,Bureau AA,remi.leclerc@example.com,0772345678,Toulouse,Masculin
+770003344,XY770003,Eva,Martin,1995-07-15,Nice,Bureau BB,eva.martin@example.com,0773456789,Nice,Féminin
+770004455,XY770004,Julien,Moreau,1983-09-30,Lyon,Bureau CC,julien.moreau@example.com,0774567890,Lyon,Masculin
+770005566,XY770005,Sophie,Faure,1991-11-25,Rennes,Bureau DD,sophie.faure@example.com,0775678901,Rennes,Féminin
+770006677,XY770006,Maxime,Simon,1986-04-08,Bordeaux,Bureau EE,maxime.simon@example.com,0776789012,Bordeaux,Masculin
+770007788,XY770007,Léa,Dupont,1994-01-17,Strasbourg,Bureau FF,lea.dupont@example.com,0777890123,Strasbourg,Féminin
+770008899,XY770008,Théo,Roussel,1992-08-12,Marseille,Bureau GG,theo.roussel@example.com,0778901234,Marseille,Masculin
+770009900,XY770009,Clara,Noir,1993-06-05,Montpellier,Bureau HH,clara.noir@example.com,0779012345,Montpellier,Féminin
+770010011,XY770010,Léo,Blanc,1989-03-22,Clermont-Ferrand,Bureau II,leo.blanc@example.com,0770123456,Clermont-Ferrand,Masculin

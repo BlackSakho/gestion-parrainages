@@ -1,0 +1,2 @@
+NumeroCarteElecteur,CIN,Nom,Prenom,DateNaissance,BureauVote,Email,Telephone,created_at
+123123456,1231234560123,Moreau,Lucie,1988-03-14,Bureau 6,lucie.moreau@example.com,+33123456784,2023-01-06 15:00:00
