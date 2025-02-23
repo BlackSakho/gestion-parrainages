@@ -1,0 +1,9 @@
+NumeroCarteElecteur,CIN,Nom,Prenom,DateNaissance,Commune,BureauVote,Email,Telephone,LieuDeNaissance,Sexe
+111223344,JK111223,Alice,Bernard,1982-11-10,Nantes,Bureau F,alice.bernard@example.com,0123456780,Nantes,Féminin
+222334455,KL222334,Boby,Martin,1975-03-22,Bordeaux,Bureau G,boby.martin@example.com,0987654322,Bordeaux,Masculin
+333445566,LM333445,Chloé,Leroy,1998-07-30,Strasbourg,Bureau H,chloe.leroy@example.com,0678123456,Strasbourg,Féminin
+444556677,MN444556,Damien,Moreau,1990-02-14,Lille,Bureau I,damien.moreau@example.com,0623456789,Lille,Masculin
+555667788,OP555667,Émilie,Blanc,1980-04-05,Montpellier,Bureau J,emilie.blanc@example.com,0756789012,Montpellier,Féminin
+666778899,PQ666778,François,Simon,1995-09-21,Rennes,Bureau K,francois.simon@example.com,0765432109,Rennes,Masculin
+777889900,QR777889,Gabrielle,Noir,1993-12-01,Reims,Bureau L,gabrielle.noir@example.com,0789012345,Reims,Féminin
+888990011,RS888990,Hugo,Durand,1987-05-12,Clermont-Ferrand,Bureau M,hugo.durand@example.com,0712345678,Clermont-Ferrand,Masculin
