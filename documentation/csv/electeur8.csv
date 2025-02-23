@@ -1,0 +1,6 @@
+NumeroCarteElecteur,CIN,Nom,Prenom,DateNaissance,Commune,BureauVote,Email,Telephone,LieuDeNaissance,Sexe
+770021122,XY770021,Juliette,Martin,1992-04-15,Reims,Bureau TT,juliette.martin@example.com,0771234578,Reims,Féminin
+770022233,XY770022,Antoine,Durand,1989-09-30,Nice,Bureau UU,antoine.durand@example.com,0772345689,Nice,Masculin
+770023344,XY770023,Clémentine,Noir,1994-12-05,Lyon,Bureau VV,clementine.noir@example.com,0773456790,Lyon,Féminin
+770024455,XY770024,Marc,Leclerc,1986-02-18,Toulouse,Bureau WW,marc.leclerc@example.com,0774567801,Toulouse,Masculin
+770025566,XY770025,Elodie,Guillaume,1993-07-22,Bordeaux,Bureau XX,elodie.guillaume@example.com,0775678912,Bordeaux,Féminin
