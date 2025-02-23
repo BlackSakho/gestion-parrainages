@@ -1,0 +1,3 @@
+NumeroCarteElecteur,CIN,Nom,Prenom,DateNaissance,Commune,BureauVote,Email,Telephone,LieuDeNaissance,Sexe
+123234403,834587667600077,SOW,Fatou,1926-05-01,Camberene,Bureau 10,sowfa@gmail.com,708567667,Camberene,Feminin
+12323400433,2345767659877,Diop,Badou,1978-10-01,Camberene,Bureau 10,badoud@gmail.com,700987667,Camberene,Masculin
