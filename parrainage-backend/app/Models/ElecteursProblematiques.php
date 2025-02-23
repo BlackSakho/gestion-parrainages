@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ElecteursProblematiques extends Model
 {
     use HasFactory;
+    protected $table = 'ElecteursProblematiques';
 
     protected $fillable = [
-        'NumeroCarteElecteur', 'CIN', 'Nom', 'Prenom',
-        'DateNaissance', 'BureauVote', 'Email', 'Telephone', 'Statut'
+        'IDFichier','NumeroCarteElecteur', 'CIN', 'NatureProbleme'
     ];
 }

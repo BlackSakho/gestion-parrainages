@@ -8,8 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class PeriodeParrainage extends Model
 {
     use HasFactory;
+    protected $table = 'PeriodeParrainage';
 
-    protected $table = 'periodes_parrainage';
-    protected $fillable = ['etat'];
+    protected $fillable = [
+        'DateDebut',
+        'DateFin',
+        'Active'
+    ];
 
+    protected $casts = [
+        'DateDebut' => 'date',
+        'DateFin' => 'date',
+        'Active' => 'boolean'
+    ];
 }

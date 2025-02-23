@@ -8,8 +8,9 @@ class Electeur extends Model
 {
     use HasFactory;
 
+    protected $table = 'Electeurs';
     protected $fillable = [
         'NumeroCarteElecteur', 'CIN', 'Nom', 'Prenom',
-        'DateNaissance', 'BureauVote', 'Email', 'Telephone', 'Statut'
+        'DateNaissance','Commune', 'BureauVote', 'IDFichier', 'LieuDeNaissance', 'Sexe', 'Statut'
     ];
 }

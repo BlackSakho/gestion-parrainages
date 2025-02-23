@@ -5,23 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Candidat extends Model
+class Parrains extends Model
 {
     use HasFactory;
-    protected $table = 'Candidats';
+    protected $table = 'Parrains';
 
     protected $fillable = [
         'NumeroCarteElecteur',
+        'CIN',
         'Nom',
-        'Prenom',
-        'DateNaissance',
+        'BureauVote',
         'Email',
         'Telephone',
-        'PartiPolitique',
-        'Slogan',
-        'Photo',
-        'Couleurs',
-        'URL',
-        'CodeSecurite'
+        'CodeAuth',
+        'CodeExpiration'
     ];
 }

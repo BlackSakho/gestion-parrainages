@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Parrainage extends Model
 {
     use HasFactory;
+    protected $table = 'Parrainages';
+
+    protected $fillable = [
+        'ElecteurID',
+        'CandidatID',
+        'CodeValidation'
+    ];
 }

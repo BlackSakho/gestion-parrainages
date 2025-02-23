@@ -9,10 +9,10 @@ class ElecteurTemps extends Model
 {
     use HasFactory;
 
-    protected $table = 'electeurtemps'; 
+    protected $table = 'electeurtemps';
 
     protected $fillable = [
         'NumeroCarteElecteur', 'CIN', 'Nom', 'Prenom',
-        'DateNaissance', 'BureauVote', 'Email', 'Telephone', 'IDFichier'
+        'DateNaissance','Commune', 'BureauVote', 'IDFichier', 'LieuDeNaissance', 'Sexe'
     ];
 }
