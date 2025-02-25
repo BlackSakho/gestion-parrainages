@@ -60,5 +60,27 @@ class ParrainController extends Controller
         return response()->json(['message' => 'Compte créé avec succès ✅', 'parrain' => $parrain]);
     }
 
+    public function login(Request $request)
+{
+    $request->validate([
+        'numeroCarteElecteur' => 'required|string',
+        'numeroCNI' => 'required|string',
+        'codeAuthentification' => 'required|string',
+    ]);
 
+    $parrain = Parrains::where('numeroCarteElecteur', $request->numeroCarteElecteur)
+        ->where('numeroCNI', $request->numeroCNI)
+        ->first();
+
+    if (!$parrain || !Hash::check($request->codeAuthentification, $parrain->codeAuthentification)) {
+        return response()->json(['message' => 'Identifiants invalides'], 401);
+    }
+
+    // Authentifier l'utilisateur et générer un token
+    $token = $parrain->createToken('ParrainToken')->plainTextToken;
+
+    return response()->json(['message' => 'Authentification réussie', 'parrain' => $parrain, 'token' => $token]);
+
+
+}
 }
