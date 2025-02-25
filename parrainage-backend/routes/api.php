@@ -91,6 +91,7 @@ Route::post('/electeurs', function (Request $request) {
     $electeur = Electeur::create($request->all());
     return response()->json($electeur);
 });
+Route::post('/parrain/verify', [ParrainController::class, 'verifyParrainInfo']);
 Route::post('/parrain/register', [ParrainController::class, 'register']);
 Route::post('/parrain/login', [ParrainController::class, 'login']);
 Route::post('/parrainage/enregistrer', [ParrainageController::class, 'enregistrer']);
