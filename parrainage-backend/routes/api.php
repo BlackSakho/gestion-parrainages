@@ -126,6 +126,7 @@ Route::post('/electeurs', function (Request $request) {
     return response()->json($electeur);
 });
 
+
 Route::post('/parrain/verify', [ParrainController::class, 'verifyParrainInfo']);
 Route::post('/parrain/register', [ParrainController::class, 'register']);
 Route::post('/parrain/login', [ParrainController::class, 'login']);

@@ -73,7 +73,7 @@ class ParrainController extends Controller
         'NumeroCarteElecteur' => 'required|string',
         'CIN' => 'required|string',
         'CodeAuth' => 'required|string',
-        
+
     ]);
 
     $parrain = Parrains::where('NumeroCarteElecteur', $request->NumeroCarteElecteur)
