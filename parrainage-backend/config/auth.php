@@ -18,6 +18,8 @@ return [
         'passwords' => 'users',
     ],
 
+
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -36,10 +38,12 @@ return [
     */
 
     'guards' => [
+
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-        ],
+         ],
+
         'parrain' => [
             'driver' => 'session',
             'provider' => 'parrains',
@@ -102,6 +106,12 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'parrains' => [
+            'provider' => 'parrains',
+            'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],

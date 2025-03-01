@@ -32,55 +32,89 @@ use App\Http\Controllers\ParrainageController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-
-});
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/me', [AuthController::class, 'me']);
-    Route::post('/candidats/verifier', [CandidatController::class, 'verifierElecteur']);
-    Route::post('/candidats', [CandidatController::class, 'enregistrerCandidat']);
-    Route::get('/candidats', [CandidatController::class, 'getCandidats']);
-    Route::post('/candidats/regenerer-code', [CandidatController::class, 'regenererCodeSecurite']);
-
-});
+/*
+|--------------------------------------------------------------------------
+| Authentification (DGE)
+|--------------------------------------------------------------------------
+*/
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->put('/profil/update', function (Request $request) {
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'prenom' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users,email,' . $request->user()->id,
-        'password' => 'nullable|string|min:6',
-    ]);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
 
-    $user = $request->user();
-    $user->name = $request->name;
-    $user->prenom = $request->prenom;
-    $user->email = $request->email;
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/me', [AuthController::class, 'me']);
 
-    if ($request->password) {
-        $user->password = Hash::make($request->password);
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Gestion du Profil Utilisateur
+    |--------------------------------------------------------------------------
+    */
+    Route::put('/profil/update', function (Request $request) {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $request->user()->id,
+            'password' => 'nullable|string|min:6',
+        ]);
 
-    $user->save();
+        $user = $request->user();
+        $user->name = $request->name;
+        $user->prenom = $request->prenom;
+        $user->email = $request->email;
 
-    return response()->json(['message' => 'Profil mis à jour avec succès ✅']);
-});
-Route::middleware('auth:sanctum')->post('/periode-parrainage', [PeriodeParrainageController::class, 'enregistrerPeriode']);
-Route::middleware('auth:sanctum')->get('/periode-parrainage', [PeriodeParrainageController::class, 'getPeriode']);
-Route::middleware('auth:sanctum')->get('/periode-parrainage/verifier', [PeriodeParrainageController::class, 'verifierActivation']);
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
 
-Route::middleware('auth:sanctum')->post('/electeurs/upload', [UploadController::class, 'upload']);
-Route::middleware('auth:sanctum')->post('/electeurs/valider/{idFichier?}', [UploadController::class, 'ControlerElecteurs']);
-Route::middleware('auth:sanctum')->post('/electeurs/valider-importation/{idFichier?}', [UploadController::class, 'ValiderImportation']);
-Route::middleware('auth:sanctum')->get('/electeurs/problematiques/{idFichier?}', [ElecteursProblematiqueController::class, 'getElecteursProblematique']);
+        $user->save();
 
-Route::middleware('auth:sanctum')->get('/electeurs/en-attente', function () {
-    $enAttente = DB::table('ElecteurTemps')->exists();
-    return response()->json(['enAttente' => $enAttente]);
+        return response()->json(['message' => 'Profil mis à jour avec succès ✅']);
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Gestion des Candidats
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('candidats')->group(function () {
+        Route::post('/verifier', [CandidatController::class, 'verifierElecteur']);
+        Route::post('/', [CandidatController::class, 'enregistrerCandidat']);
+        Route::get('/', [CandidatController::class, 'getCandidats']);
+        Route::post('/regenerer-code', [CandidatController::class, 'regenererCodeSecurite']);
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Gestion de la Période de Parrainage
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('periode-parrainage')->group(function () {
+        Route::post('/', [PeriodeParrainageController::class, 'enregistrerPeriode']);
+        Route::get('/', [PeriodeParrainageController::class, 'getPeriode']);
+        Route::get('/verifier', [PeriodeParrainageController::class, 'verifierActivation']);
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Importation et Validation des Électeurs
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('electeurs')->group(function () {
+        Route::post('/upload', [UploadController::class, 'upload']);
+        Route::post('/valider/{idFichier?}', [UploadController::class, 'ControlerElecteurs']);
+        Route::post('/valider-importation/{idFichier?}', [UploadController::class, 'ValiderImportation']);
+        Route::get('/problematiques/{idFichier?}', [ElecteursProblematiqueController::class, 'getElecteursProblematique']);
+
+        // Vérifier si des électeurs sont en attente de validation
+        Route::get('/en-attente', function () {
+            $enAttente = DB::table('ElecteurTemps')->exists();
+            return response()->json(['enAttente' => $enAttente]);
+        });
+    });
 });
 
 
@@ -91,11 +125,22 @@ Route::post('/electeurs', function (Request $request) {
     $electeur = Electeur::create($request->all());
     return response()->json($electeur);
 });
+
 Route::post('/parrain/verify', [ParrainController::class, 'verifyParrainInfo']);
 Route::post('/parrain/register', [ParrainController::class, 'register']);
 Route::post('/parrain/login', [ParrainController::class, 'login']);
 Route::post('/parrainage/enregistrer', [ParrainageController::class, 'enregistrer']);
 Route::put('/parrain/update', [ParrainController::class, 'updateProfile'])->middleware('auth:sanctum');
+Route::get('/candidats', [CandidatController::class, 'getCandidats']);
+Route::middleware(['auth.parrain'])->group(function ()  {
+    Route::post('parrain/verify', [ParrainController::class, 'verifyParrainInfo']);
+    Route::post('parrain/register', [ParrainController::class, 'register']);
+    Route::post('parrain/login', [ParrainController::class, 'login']);
+
+    Route::post('/parrainage/enregistrer', [ParrainageController::class, 'enregistrer']);
+});
+
+Route::get('/candidats', [ParrainController::class, 'getCandidats']);
 
 
 

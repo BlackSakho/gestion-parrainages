@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Candidat;
 use Illuminate\Http\Request;
 use App\Models\Parrainage;
 use App\Models\Parrains;
@@ -37,6 +38,7 @@ class ParrainageController extends Controller
             'CodeValidation' => $codeValidation
         ]);
 
+
         // Envoi du code par email
         Mail::raw("Votre code de validation est : $codeValidation", function ($message) use ($parrain) {
             $message->to($parrain->Email)->subject('Code de validation du parrainage');
@@ -44,4 +46,5 @@ class ParrainageController extends Controller
 
         return response()->json(['message' => 'Parrainage enregistré ✅', 'CodeValidation' => $codeValidation]);
     }
+    
 }
