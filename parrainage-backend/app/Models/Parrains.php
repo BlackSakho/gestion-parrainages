@@ -20,4 +20,10 @@ class Parrains extends Model
         'CodeAuth',
         'CodeExpiration'
     ];
+
+
+public function setCodeAuthentificationAttribute($value)
+{
+    $this->attributes['codeAuth'] = bcrypt($value);
+}
 }
