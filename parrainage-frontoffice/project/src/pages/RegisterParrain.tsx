@@ -96,18 +96,6 @@ const RegisterParrain = () => {
                     onChange={handleChange}
                   />
                 </div>
-
-                <button
-                  type="submit"
-                  className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700"
-                >
-                  Vérifier et Continuer
-                </button>
-              </div>
-            </form>
-          ) : (
-            <form onSubmit={handleSubmitStep2}>
-              <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
                     Nom de Famille
@@ -135,6 +123,18 @@ const RegisterParrain = () => {
                     onChange={handleChange}
                   />
                 </div>
+
+                <button
+                  type="submit"
+                  className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700"
+                >
+                  Vérifier et Continuer
+                </button>
+              </div>
+            </form>
+          ) : (
+            <form onSubmit={handleSubmitStep2}>
+              <div className="space-y-6">
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700">

@@ -14,11 +14,13 @@ use Illuminate\Validation\Rule;
 
 class ParrainController extends Controller
 {
-    // 🔹 Vérification des informations avant inscription
+    //  Vérification des informations avant inscription
     public function verifyParrainInfo(Request $request) {
         $validator = Validator::make($request->all(), [
             'NumeroCarteElecteur' => 'required|exists:Electeurs,NumeroCarteElecteur',
             'CIN' => 'required|exists:Electeurs,CIN',
+            'Nom' => 'required|exists:Electeurs,Nom',
+            'BureauVote' => 'required|exists:Electeurs,BureauVote',
         ]);
 
         if ($validator->fails()) {
@@ -28,13 +30,9 @@ class ParrainController extends Controller
         return response()->json(['success' => true, 'message' => 'Informations validées ✅']);
     }
 
-    // 🔹 Inscription du parrain-électeur
+    //  Inscription du parrain-électeur
     public function register(Request $request) {
         $validator = Validator::make($request->all(), [
-            'NumeroCarteElecteur' => 'required|exists:Electeurs,NumeroCarteElecteur',
-            'CIN' => 'required|exists:Electeurs,CIN',
-            'Nom' => 'required|exists:Electeurs,Nom',
-            'BureauVote' => 'required|exists:Electeurs,BureauVote',
             'Email' => 'required|email|unique:Parrains,Email',
             'Telephone' => 'required|unique:Parrains,Telephone',
         ]);
@@ -43,7 +41,7 @@ class ParrainController extends Controller
             return response()->json(['message' => 'Échec de validation ❌', 'errors' => $validator->errors()], 400);
         }
 
-        // 🔹 Générer un code d'authentification aléatoire
+        //  Générer un code d'authentification aléatoire
         $codeAuth = rand(100000, 999999);
         $expiration = Carbon::now()->addMinutes(10);
 
@@ -60,13 +58,13 @@ class ParrainController extends Controller
             ]
         );
 
-        // 🔹 Envoi du code par mail
+        //  Envoi du code par mail
         Mail::to($request->Email)->send(new CodeVerificationMail($codeAuth));
 
         return response()->json(['message' => 'Compte créé avec succès ✅', 'parrain' => $parrain]);
     }
 
-    // 🔹 Connexion du parrain
+    //  Connexion du parrain
     public function login(Request $request)
 {
     $request->validate([
@@ -89,7 +87,7 @@ class ParrainController extends Controller
     return response()->json(['message' => 'Authentification réussie', 'parrain' => $parrain, 'token' => $token]);
 }
 
-    // 🔹 Récupérer la liste des candidats
+    //  Récupérer la liste des candidats
     public function getCandidats()
     {
         $candidats = Candidat::select(
