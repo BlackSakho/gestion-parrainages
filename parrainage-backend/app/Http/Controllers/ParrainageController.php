@@ -8,6 +8,7 @@ use App\Models\Parrainage;
 use App\Models\Parrains;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\CodeVerificationMail;
 
 class ParrainageController extends Controller
 {
@@ -40,11 +41,9 @@ class ParrainageController extends Controller
 
 
         // Envoi du code par email
-        Mail::raw("Votre code de validation est : $codeValidation", function ($message) use ($parrain) {
-            $message->to($parrain->Email)->subject('Code de validation du parrainage');
-        });
+        Mail::to($request->user()->email)->send(new CodeVerificationMail($codeValidation));
 
         return response()->json(['message' => 'Parrainage enregistré ✅', 'CodeValidation' => $codeValidation]);
     }
-    
+
 }

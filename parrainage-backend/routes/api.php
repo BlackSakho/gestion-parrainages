@@ -37,15 +37,50 @@ use App\Http\Controllers\ParrainageController;
 | Authentification (DGE)
 |--------------------------------------------------------------------------
 */
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('dge/register', [AuthController::class, 'register']);
+Route::post('dge/login', [AuthController::class, 'login']);
+
+/*
+|--------------------------------------------------------------------------
+| Authentification (parrain)
+|--------------------------------------------------------------------------
+*/
+Route::prefix('parrain')->group(function () {
+    Route::post('/register', [ParrainController::class, 'register']);  // Inscription
+    Route::post('/login', [ParrainController::class, 'login']);        // Connexion
+    Route::post('/verify', [ParrainController::class, 'verifyParrainInfo']); // Vérification d'identité
+    Route::post('/controle', [ParrainController::class, 'verifyParrain']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/logout', function (Request $request) {
+            $request->user()->tokens()->delete();
+            return response()->json(['message' => 'Déconnexion réussie ✅']);
+        });
+
+        Route::get('/me', function (Request $request) {
+            return response()->json($request->user());
+        });
+        Route::post('/parrainage/enregistrer', [ParrainageController::class, 'enregistrer']);
+        Route::get('/candidats', [CandidatController::class, 'getCandidats']);
+        Route::get('/candidats/{id}', [CandidatController::class, 'getCandidatById']);
+
+
+    });
+});
+Route::prefix('candidat')->group(function () {
+    Route::post('/login', [CandidatController::class, 'login']);
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/parrainages', [CandidatController::class, 'getParrainages']);
+        Route::get('/parrainages/stats', [CandidatController::class, 'getParrainageStats']);
+    });
+});
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/dge/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
 
     /*
@@ -127,21 +162,7 @@ Route::post('/electeurs', function (Request $request) {
 });
 
 
-Route::post('/parrain/verify', [ParrainController::class, 'verifyParrainInfo']);
-Route::post('/parrain/register', [ParrainController::class, 'register']);
-Route::post('/parrain/login', [ParrainController::class, 'login']);
-Route::post('/parrainage/enregistrer', [ParrainageController::class, 'enregistrer']);
-Route::put('/parrain/update', [ParrainController::class, 'updateProfile'])->middleware('auth:sanctum');
-Route::get('/candidats', [CandidatController::class, 'getCandidats']);
-Route::middleware(['auth.parrain'])->group(function ()  {
-    Route::post('parrain/verify', [ParrainController::class, 'verifyParrainInfo']);
-    Route::post('parrain/register', [ParrainController::class, 'register']);
-    Route::post('parrain/login', [ParrainController::class, 'login']);
 
-    Route::post('/parrainage/enregistrer', [ParrainageController::class, 'enregistrer']);
-});
-
-Route::get('/candidats', [ParrainController::class, 'getCandidats']);
 
 
 

@@ -44,9 +44,14 @@ return [
             'provider' => 'users',
          ],
 
-        'parrain' => [
+        'parrains' => [
             'driver' => 'session',
             'provider' => 'parrains',
+        ],
+        
+        'candidats' => [
+            'driver' => 'session',
+            'provider' => 'candidats',
         ],
     ],
 
@@ -75,6 +80,10 @@ return [
         'parrains' => [
             'driver' => 'eloquent',
             'model' => App\Models\Parrains::class,
+        ],
+        'candidats' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Candidat::class,
         ],
 
         // 'users' => [
@@ -111,6 +120,12 @@ return [
         ],
         'parrains' => [
             'provider' => 'parrains',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'candidats' => [
+            'provider' => 'candidats',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

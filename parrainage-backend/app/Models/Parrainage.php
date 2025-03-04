@@ -15,4 +15,8 @@ class Parrainage extends Model
         'CandidatID',
         'CodeValidation'
     ];
+    public function parrainages()
+    {
+        return $this->hasMany(Parrainage::class);
+    }
 }

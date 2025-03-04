@@ -11,6 +11,8 @@ const RegisterParrain = () => {
     NumeroCarteElecteur: '',
     CIN: '',
     Nom: '',
+    Prenom: '',
+    DateNaissance: '',
     BureauVote: '',
     Telephone: '',
     Email: '',
@@ -28,6 +30,12 @@ const RegisterParrain = () => {
       const response = await checkParrainInfo({
         NumeroCarteElecteur: formData.NumeroCarteElecteur,
         CIN: formData.CIN,
+        Nom: formData.Nom,
+        Prenom: formData.Prenom,
+        DateNaissance: formData.DateNaissance,
+        BureauVote: formData.BureauVote,
+        
+        
       });
 
       if (response.success) {
@@ -45,11 +53,18 @@ const RegisterParrain = () => {
   const handleSubmitStep2 = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await registerParrain(formData);
+     const response = await registerParrain({
+        Telephone: formData.Telephone,
+        Email: formData.Email,});
+        if (response.success) {
+      // Envoi du code d'authentification
       toast.success("Inscription réussie ! Un code d'authentification vous a été envoyé.");
-      navigate('/parrainage');
-    } catch (error) {
+      navigate('/parrain');
+    } else {
       toast.error("Erreur lors de l'inscription.");
+   }
+      } catch (error) {
+    toast.error("Erreur lors de l'inscription.");
     }
   };
 
@@ -106,6 +121,32 @@ const RegisterParrain = () => {
                     required
                     className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm"
                     value={formData.Nom}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Prénom
+                  </label>
+                  <input
+                    type="text"
+                    name="Prenom"
+                    required
+                    className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm"
+                    value={formData.Prenom}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Date de Naissance
+                  </label>
+                  <input
+                    type="date"
+                    name="DateNaissance"
+                    required
+                    className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm"
+                    value={formData.DateNaissance}
                     onChange={handleChange}
                   />
                 </div>
@@ -185,7 +226,7 @@ const RegisterParrain = () => {
               </div>
             </div>
             <div className="mt-6 text-center">
-              <Link to="/parrainage" className="font-medium text-indigo-600 hover:text-indigo-500">
+              <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
                 Se connecter pour parrainer un candidat
               </Link>
             </div>

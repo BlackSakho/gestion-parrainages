@@ -53,6 +53,7 @@ class Kernel extends HttpKernel
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.sanctum' => EnsureFrontendRequestsAreStateful::class,
        'auth.parrain' => \App\Http\Middleware\ParrainAuthMiddleware::class, // Middleware pour les électeurs
+       'auth.candidat' => \App\Http\Middleware\CandidatAuthMiddleware::class,
     ];
     /**
      * The application's middleware aliases.

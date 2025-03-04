@@ -15,6 +15,8 @@ return new class extends Migration
             $table->string('NumeroCarteElecteur')->unique();
             $table->string('CIN')->unique();
             $table->string('Nom');
+            $table->string('Prenom');
+            $table->date('DateNaissance');
             $table->string('BureauVote');
             $table->string('Email')->unique();
             $table->string('Telephone')->unique();

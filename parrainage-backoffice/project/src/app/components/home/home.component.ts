@@ -26,6 +26,10 @@ import { RouterLink } from '@angular/router';
                class="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
               Liste des Candidats
             </a>
+             <a routerLink="/sponsorships" 
+               class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+              Tableau de Bord Parrainages
+            </a>
           </div>
         </div>
       </div>
@@ -45,6 +49,13 @@ import { RouterLink } from '@angular/router';
             <h3 class="text-xl font-semibold mb-2">Gestion des Candidats</h3>
             <p class="text-gray-600">
               Enregistrement et suivi des candidatures avec validation des informations.
+            </p>
+          </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+            <div class="text-blue-600 text-4xl mb-4">📊</div>
+            <h3 class="text-xl font-semibold mb-2">Suivi des Parrainages</h3>
+            <p class="text-gray-600">
+              Tableau de bord avec statistiques détaillées sur l'évolution des parrainages par candidat.
             </p>
           </div>
           <div class="bg-white p-6 rounded-xl shadow-lg">

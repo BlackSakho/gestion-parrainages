@@ -20,6 +20,7 @@ import { AuthService } from './services/auth.service';
                 <a routerLink="/voters" class="text-gray-600 hover:text-blue-600 transition-colors">Électeurs</a>
                 <a routerLink="/candidates" class="text-gray-600 hover:text-blue-600 transition-colors">Candidats</a>
                 <a routerLink="/schedule" class="text-gray-600 hover:text-blue-600 transition-colors">Calendrier</a>
+                <a routerLink="/sponsorships" class="text-gray-600 hover:text-blue-600 transition-colors">Tableau de Bord</a>
               </div>
             </div>
             <div class="flex items-center space-x-4">

@@ -51,5 +51,15 @@ export const routes: Routes = [
     path: 'schedule', 
     loadComponent: () => import('./components/schedule-management/schedule-management.component').then(m => m.ScheduleManagementComponent),
     canActivate: [AuthGuard]
+  },
+  { 
+    path: 'sponsorships', 
+    loadComponent: () => import('./components/sponsorship-dashboard/sponsorship-dashboard.component').then(m => m.SponsorshipDashboardComponent),
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'sponsorships/candidate/:id', 
+    loadComponent: () => import('./components/sponsorship-detail/sponsorship-detail.component').then(m => m.SponsorshipDetailComponent),
+    canActivate: [AuthGuard]
   }
 ];

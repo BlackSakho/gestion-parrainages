@@ -41,6 +41,7 @@ class AuthController extends Controller {
         $token = $user->createToken('authToken')->plainTextToken;
         return response()->json(['token' => $token, 'user' => $user]);
     }
+    
 
     // Déconnexion
     public function logout(Request $request) {

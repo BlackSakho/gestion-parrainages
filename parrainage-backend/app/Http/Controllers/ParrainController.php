@@ -10,10 +10,86 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\CodeVerificationMail;
 use App\Models\Candidat;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class ParrainController extends Controller
 {
+
+     //  Connexion du parrain
+
+     public function login(Request $request) {
+        $request->validate([
+            'NumeroCarteElecteur' => 'required|string|exists:parrains,NumeroCarteElecteur',
+            'CIN' => 'required|string|exists:parrains,CIN',
+
+        ]);
+
+        // Récupérer les informations de l'électeur
+        $electeur = Electeur::where('NumeroCarteElecteur', $request->NumeroCarteElecteur)
+        ->where('CIN', $request->CIN)
+        ->first();
+        
+        // Vérifier si le parrain existe
+        $parrain = Parrains::where('NumeroCarteElecteur', $request->NumeroCarteElecteur)
+            ->where('CIN', $request->CIN)
+            ->first();
+
+        if (!$parrain) {
+            return response()->json(['message' => 'Identifiants invalides ❌'], 401);
+        }
+
+
+
+     if (!$electeur) {
+         return response()->json(['message' => 'Électeur introuvable ❌'], 404);
+     }
+
+
+        // Supprimer les anciens tokens avant d'en créer un nouveau
+        $parrain->tokens()->delete();
+
+        // Générer un nouveau token pour l'utilisateur
+        $token = $parrain->createToken('ParrainToken', ['parrain'])->plainTextToken;
+
+
+        return response()->json([
+            'message' => 'Authentification réussie ✅',
+            'token' => $token,
+            'electeur' => $electeur,
+            'parrain' => $parrain,
+            'success' => true,
+
+        ]);
+
+    }
+
+    public function verifyParrain(Request $request)
+    {
+        $request->validate([
+            'NumeroCarteElecteur' => 'required|string',
+            'CIN' => 'required|string',
+        ]);
+
+        $parrain = Parrains::where('NumeroCarteElecteur', $request->NumeroCarteElecteur)
+                          ->where('CIN', $request->CIN)
+                          ->first();
+
+        if ($parrain) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Identité vérifiée avec succès ✅',
+                'parrain' => $parrain,
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Électeur introuvable ❌',
+            ], 404);
+        }
+    }
+
+
     //  Vérification des informations avant inscription
     public function verifyParrainInfo(Request $request) {
         $validator = Validator::make($request->all(), [
@@ -64,28 +140,6 @@ class ParrainController extends Controller
         return response()->json(['message' => 'Compte créé avec succès ✅', 'parrain' => $parrain]);
     }
 
-    //  Connexion du parrain
-    public function login(Request $request)
-{
-    $request->validate([
-        'NumeroCarteElecteur' => 'required|string',
-        'CIN' => 'required|string',
-        'CodeAuth' => 'required|string',
-
-    ]);
-
-    $parrain = Parrains::where('NumeroCarteElecteur', $request->NumeroCarteElecteur)
-        ->where('CIN', $request->CIN)
-        ->first();
-
-    if (!$parrain || $parrain->CodeAuth !== $request->CodeAuth) {
-        return response()->json(['message' => 'Identifiants invalides'], 401);
-    }
-
-    $token = $parrain->createToken('parrainToken')->plainTextToken;
-
-    return response()->json(['message' => 'Authentification réussie', 'parrain' => $parrain, 'token' => $token]);
-}
 
     //  Récupérer la liste des candidats
     public function getCandidats()

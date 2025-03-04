@@ -3,32 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 
 class Parrains extends Authenticatable
-
 {
-    use HasFactory, HasApiTokens;
-    protected $table = 'Parrains';
+    use HasFactory, HasApiTokens, Notifiable;
+
+    protected $table = 'parrains'; // Assurez-vous que ce nom est correct
 
     protected $fillable = [
-        'NumeroCarteElecteur',
-        'CIN',
-        'Nom',
-        'BureauVote',
-        'Email',
-        'Telephone',
-        'CodeAuth',
-        'CodeExpiration'
+        'NumeroCarteElecteur', 'CIN', 'Nom','Prenom','DateNaissance', 'BureauVote',
+        'Email', 'Telephone', 'CodeAuth', 'CodeExpiration'
     ];
-
-
-
-
-public function setCodeAuthentificationAttribute($value)
-{
-    $this->attributes['codeAuth'] = bcrypt($value);
-}
 }

@@ -15,13 +15,13 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   register(user: { name: string, prenom: string, email: string, password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, user).pipe(
+    return this.http.post(`${this.apiUrl}/dge/register`, user).pipe(
       tap(response => console.log('Registration response:', response))
     );
   }
 
   login(credentials: { email: string, password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+    return this.http.post(`${this.apiUrl}/dge/login`, credentials).pipe(
       tap((response: any) => {
         localStorage.setItem(this.tokenKey, response.token);
         this.isAuthenticatedSubject.next(true);
@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   logout(): void {
-    this.http.post(`${this.apiUrl}/logout`, {}, { headers: this.getAuthHeaders() }).subscribe(() => {
+    this.http.post(`${this.apiUrl}/dge/logout`, {}, { headers: this.getAuthHeaders() }).subscribe(() => {
       localStorage.removeItem(this.tokenKey);
       this.isAuthenticatedSubject.next(false);
       this.router.navigate(['/login']);

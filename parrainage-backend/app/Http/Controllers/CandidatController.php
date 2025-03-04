@@ -7,6 +7,9 @@ use App\Models\Candidat;
 use App\Models\Electeur;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Parrainage;
 
 class CandidatController extends Controller
 {
@@ -27,7 +30,7 @@ class CandidatController extends Controller
             return response()->json(['message' => 'Candidat déjà enregistré !'], 409);
         }
 
-        
+
         return response()->json([
             'Nom' => $electeur->Nom,
             'Prenom' => $electeur->Prenom,
@@ -106,4 +109,74 @@ class CandidatController extends Controller
 
         return response()->json(['message' => 'Nouveau code généré et envoyé ✅']);
     }
+
+
+    // ✅ 4️⃣ Récupérer un candidat par son ID
+    public function getCandidatById($id)
+    {
+        $candidat = Candidat::find($id);
+
+        if (!$candidat) {
+            return response()->json(['message' => 'Candidat non trouvé'], 404);
+        }
+
+        return response()->json($candidat);
+    }
+    public function login(Request $request)
+    {
+        $request->validate([
+            'Email' => 'required|email',
+            'CodeSecurite' => 'required|string',
+        ]);
+
+        $candidat = Candidat::where('Email', $request->email)->first();
+
+        if (!$candidat || !Hash::check($request->CodeSecurite, $candidat->CodeSecurite)) {
+            return response()->json(['message' => 'Identifiants incorrects'], 401);
+        }
+
+
+        // Supprimer les anciens tokens avant d'en créer un nouveau
+        $candidat->tokens()->delete();
+
+        // Générer un nouveau token pour l'utilisateur
+        $token = $candidat->createToken('CandidatToken', ['candidat'])->plainTextToken;
+
+
+
+        return response()->json([
+            'token' => $token,
+            'candidat' => $candidat]);
+    }
+    public function getParrainages(Request $request)
+    {
+        $candidat = Auth::user();
+        $parrainages = $candidat->parrainages()->orderBy('created_at', 'desc')->get();
+
+        return response()->json($parrainages);
+    }
+    public function getParrainageStats(Request $request)
+    {
+        $candidat = Auth::user();
+        $parrainages = $candidat->parrainages;
+
+        $stats = [
+            'total' => $parrainages->count(),
+            'today' => $parrainages->where('created_at', '>=', now()->startOfDay())->count(),
+            'yesterday' => $parrainages->where('created_at', '>=', now()->subDay()->startOfDay())->where('created_at', '<', now()->startOfDay())->count(),
+            'lastWeek' => $parrainages->where('created_at', '>=', now()->subWeek())->count(),
+            'byDay' => $parrainages->groupBy(function ($date) {
+                return $date->created_at->format('Y-m-d');
+            })->map(function ($day) {
+                return $day->count();
+            }),
+            'byRegion' => $parrainages->groupBy('region')->map(function ($region) {
+                return $region->count();
+            }),
+        ];
+
+        return response()->json($stats);
+    }
+
+
 }
