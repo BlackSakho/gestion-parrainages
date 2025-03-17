@@ -8,7 +8,7 @@ import { electeursProblematiques } from '../models/voter';
     providedIn: 'root'
   })
   export class ImportationElecteursService {
-    private apiUrl = 'http://127.0.0.1:8000/api';
+    private apiUrl = 'https://parrainage.kesug.com/api';
   
     constructor(
       private http: HttpClient,
