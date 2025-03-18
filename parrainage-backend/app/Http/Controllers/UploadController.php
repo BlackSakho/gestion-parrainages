@@ -223,5 +223,10 @@ class UploadController extends Controller
         }
     }
 
+    public function getElecteursEnAttente() {
+        $electeurs = DB::table('ElecteurTemps')->get();
+        return response()->json($electeurs);
+    }
+
 
 }

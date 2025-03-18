@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { electeursProblematiques } from '../models/voter';
+import { electeursProblematiques, ElecteursTemp } from '../models/voter';
 
 @Injectable({
     providedIn: 'root'
   })
   export class ImportationElecteursService {
-    private apiUrl = 'https://parrainage.kesug.com/api';
+    private apiUrl = 'http://localhost:8000/api';
   
     constructor(
       private http: HttpClient,
@@ -26,17 +26,20 @@ import { electeursProblematiques } from '../models/voter';
       return this.http.post(`${this.apiUrl}/electeurs/upload`, formData, { headers });
     }
     
-  
-    validerElecteurs(idFichier: string): Observable<any> {
-      const headers = this.authService.getAuthHeaders();
-      return this.http.post(`${this.apiUrl}/electeurs/valider/${idFichier}`, {}, { headers });
+    getElecteursEnAttente() {
+      const headers = this.authService.getAuthHeaders(); // Ajoute les en-têtes d'authentification
+      return this.http.get<ElecteursTemp[]>(`${this.apiUrl}/electeurs/en-attente`, { headers });
     }
-  
-    validerImportation(idFichier: string): Observable<any> {
+    
+    validerElecteurs() {
       const headers = this.authService.getAuthHeaders();
-      return this.http.post(`${this.apiUrl}/electeurs/valider-importation/${idFichier}`, {}, { headers });
+      return this.http.post(`${this.apiUrl}/electeurs/valider`, {}, {headers});
     }
-  
+    
+    validerImportation() {
+      const headers = this.authService.getAuthHeaders();
+      return this.http.post(`${this.apiUrl}/electeurs/valider-importation`, {}, {headers});
+    }
     getElecteursProblematiques(idFichier?: string): Observable<electeursProblematiques[]> {
         const headers = this.authService.getAuthHeaders();
         const url = idFichier 

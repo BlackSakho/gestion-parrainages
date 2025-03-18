@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ParrainageService {
-  private apiUrl = 'https://parrainage.kesug.com/periode-parrainage'; // 🔗 URL de l'API Laravel
+  private apiUrl = 'http://localhost:8000/api'; // 🔗 URL de l'API Laravel
 
   constructor(private http: HttpClient) {}
 

@@ -15,28 +15,40 @@ class CandidatController extends Controller
 {
     // ✅ 1️⃣ Vérifier si l'électeur existe
     public function verifierElecteur(Request $request)
-    {
-        $request->validate([
-            'NumeroCarteElecteur' => 'required|string'
-        ]);
+{
+    $request->validate([
+        'NumeroCarteElecteur' => 'required|string'
+    ]);
 
-        $electeur = Electeur::where('NumeroCarteElecteur', $request->NumeroCarteElecteur)->first();
+    // Vérifier si l'électeur existe dans la base
+    $electeur = Electeur::where('NumeroCarteElecteur', $request->NumeroCarteElecteur)->first();
 
-        if (!$electeur) {
-            return response()->json(['message' => 'Le candidat considéré n’est pas présent dans le fichier électoral.'], 404);
-        }
-
-        if (Candidat::where('NumeroCarteElecteur', $request->NumeroCarteElecteur)->exists()) {
-            return response()->json(['message' => 'Candidat déjà enregistré !'], 409);
-        }
-
-
+    if (!$electeur) {
         return response()->json([
-            'Nom' => $electeur->Nom,
-            'Prenom' => $electeur->Prenom,
-            'DateNaissance' => $electeur->DateNaissance
-        ]);
+            'message' => '❌ Le numéro de carte d\'électeur est introuvable dans le fichier électoral.',
+            'candidat_existe' => false
+        ], 404);
     }
+
+    // Vérifier si l'électeur est déjà un candidat
+    $candidatExiste = Candidat::where('NumeroCarteElecteur', $request->NumeroCarteElecteur)->exists();
+
+    if ($candidatExiste) {
+        return response()->json([
+            'message' => '⚠️ Candidat déjà enregistré !',
+            'candidat_existe' => true
+        ], 409);
+    }
+
+    // Retourner les informations si tout est bon
+    return response()->json([
+        'message' => '✅ Électeur trouvé avec succès.',
+        'Nom' => $electeur->Nom,
+        'Prenom' => $electeur->Prenom,
+        'DateNaissance' => $electeur->DateNaissance,
+        'candidat_existe' => false
+    ]);
+}
 
     // ✅ 2️⃣ Enregistrer un candidat
     public function enregistrerCandidat(Request $request)
@@ -177,6 +189,7 @@ class CandidatController extends Controller
 
         return response()->json($stats);
     }
+    
 
 
 }

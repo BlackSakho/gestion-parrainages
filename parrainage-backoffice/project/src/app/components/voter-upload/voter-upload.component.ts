@@ -91,53 +91,9 @@ import { electeursProblematiques } from '../../models/voter';
           </div>
         </div>
 
-        <!-- Validation Section -->
-        <div *ngIf="currentFileId" class="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-6">
-          <h3 class="text-xl font-semibold mb-4">Validation des Électeurs</h3>
-          
-          <div class="space-y-4">
-            <button 
-              class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
-              (click)="validerElecteurs()"
-              [disabled]="isValidating"
-            >
-              Vérifier les données
-            </button>
+       
 
-            <button 
-              *ngIf="validationComplete && !hasErrors"
-              class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors"
-              (click)="validerImportation()"
-              [disabled]="isValidating"
-            >
-              Valider l'importation
-            </button>
-          </div>
-        </div>
-
-        <!-- Problematic Voters Section -->
-        <div *ngIf="electeursProblematiques.length > 0" class="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8">
-          <h3 class="text-xl font-semibold mb-4 text-red-600">Électeurs Problématiques</h3>
-          
-          <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CIN</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">N° Électeur</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Problème</th>
-                </tr>
-              </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
-                <tr *ngFor="let erreur of electeursProblematiques">
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ erreur.CIN }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ erreur.NumeroCarteElecteur }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600">{{ erreur.NatureProbleme }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        
       </div>
     </div>
   `
@@ -251,80 +207,4 @@ export class VoterUploadComponent {
       });
   }
 
-  validerElecteurs() {
-    if (!this.currentFileId) return;
-
-    this.isValidating = true;
-    this.importationService.validerElecteurs(this.currentFileId)
-      .subscribe({
-        next: (response) => {
-          this.validationComplete = true;
-          if (response.hasErrors) {
-            this.hasErrors = true;
-            this.getElecteursProblematiques();
-          } else {
-            this.hasErrors = false;
-            this.uploadStatus = {
-              success: true,
-              message: 'Validation réussie. Vous pouvez maintenant procéder à l\'importation finale.'
-            };
-          }
-          this.isValidating = false;
-        },
-        error: (error) => {
-          this.uploadStatus = {
-            success: false,
-            message: error.error.message || 'Erreur lors de la validation des électeurs'
-          };
-          this.isValidating = false;
-        }
-      });
-  }
-
-  validerImportation() {
-    if (!this.currentFileId) return;
-
-    this.isValidating = true;
-    this.importationService.validerImportation(this.currentFileId)
-      .subscribe({
-        next: (response) => {
-          this.uploadStatus = {
-            success: true,
-            message: 'Importation validée avec succès'
-          };
-          // Réinitialiser le formulaire
-          this.selectedFile = null;
-          this.checksum = '';
-          this.currentFileId = null;
-          this.validationComplete = false;
-          this.electeursProblematiques = [];
-          this.isValidating = false;
-        },
-        error: (error) => {
-          this.uploadStatus = {
-            success: false,
-            message: error.error.message || 'Erreur lors de la validation finale'
-          };
-          this.isValidating = false;
-        }
-      });
-  }
-
-  private getElecteursProblematiques() {
-    if (!this.currentFileId) return;
-
-    this.importationService.getElecteursProblematiques(this.currentFileId)
-      .subscribe({
-        next: (electeurs) => {
-          this.electeursProblematiques = electeurs;
-          this.uploadStatus = {
-            success: false,
-            message: 'Des erreurs ont été détectées dans le fichier. Veuillez corriger les problèmes listés ci-dessous.'
-          };
-        },
-        error: (error) => {
-          console.error('Erreur lors de la récupération des électeurs problématiques:', error);
-        }
-      });
-  }
 }

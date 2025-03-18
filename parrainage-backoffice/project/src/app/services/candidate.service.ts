@@ -7,7 +7,7 @@ import { Candidate } from '../models/candidate';
   providedIn: 'root'
 })
 export class CandidateService {
-  private apiUrl = 'https://parrainage.kesug.com/api/candidats';
+  private apiUrl = 'http://localhost:8000/api/candidats';
 
   constructor(private http: HttpClient) {}
 

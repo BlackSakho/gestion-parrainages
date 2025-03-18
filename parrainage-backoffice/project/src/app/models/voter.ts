@@ -24,7 +24,7 @@ export interface ElecteursTemp {
   BureauVote: string;
   Email: string;
   Telephone: string;
-  LieuDeNaissance: string;
+  lieuDeNaissance: string;
   Sexe: string;
 }
 

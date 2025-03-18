@@ -141,15 +141,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('electeurs')->group(function () {
         Route::post('/upload', [UploadController::class, 'upload']);
         Route::post('/valider/{idFichier?}', [UploadController::class, 'ControlerElecteurs']);
-        Route::post('/valider-importation/{idFichier?}', [UploadController::class, 'ValiderImportation']);
+        Route::post('/valider-importation', [UploadController::class, 'ValiderImportation']);
         Route::get('/problematiques/{idFichier?}', [ElecteursProblematiqueController::class, 'getElecteursProblematique']);
-
-        // Vérifier si des électeurs sont en attente de validation
-        Route::get('/en-attente', function () {
-            $enAttente = DB::table('ElecteurTemps')->exists();
-            return response()->json(['enAttente' => $enAttente]);
-        });
+        Route::get('/en-attente', [UploadController::class, 'getElecteursEnAttente']);
     });
+        // Vérifier si des électeurs sont en attente de validation
+        // Route::get('/en-attente', function () {
+            // $enAttente = DB::table('ElecteurTemps')->exists();
+            // return response()->json(['enAttente' => $enAttente]);
+        // });
+
 });
 
 

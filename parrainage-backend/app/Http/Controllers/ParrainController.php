@@ -29,7 +29,7 @@ class ParrainController extends Controller
         $electeur = Electeur::where('NumeroCarteElecteur', $request->NumeroCarteElecteur)
         ->where('CIN', $request->CIN)
         ->first();
-        
+
         // Vérifier si le parrain existe
         $parrain = Parrains::where('NumeroCarteElecteur', $request->NumeroCarteElecteur)
             ->where('CIN', $request->CIN)
@@ -133,6 +133,7 @@ class ParrainController extends Controller
                 'CodeExpiration' => $expiration
             ]
         );
+
 
         //  Envoi du code par mail
         Mail::to($request->Email)->send(new CodeVerificationMail($codeAuth));

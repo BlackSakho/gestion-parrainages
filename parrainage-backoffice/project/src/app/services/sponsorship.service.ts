@@ -9,7 +9,7 @@ import { Sponsorship, SponsorshipStats } from '../models/sponsorship';
   providedIn: 'root'
 })
 export class SponsorshipService {
-  private apiUrl = 'https://parrainage.kesug.com/api';
+  private apiUrl = 'http://localhost:8000/api';
 
   constructor(
     private http: HttpClient,

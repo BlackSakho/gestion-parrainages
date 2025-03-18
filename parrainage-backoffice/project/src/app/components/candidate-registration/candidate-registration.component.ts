@@ -74,7 +74,7 @@ export class CandidateRegistrationComponent {
   verifyElector() {
     this.errorMessage = ''; // Réinitialiser les messages d'erreur
     this.candidateExists = false;
-
+  
     this.candidateService.verifierElecteur(this.searchElectorNumber).subscribe({
       next: (data) => {
         if (data.candidat_existe) {
@@ -91,8 +91,12 @@ export class CandidateRegistrationComponent {
           this.candidateFound = true;
         }
       },
-      error: () => {
-        this.errorMessage = "⚠️ Électeur introuvable !";
+      error: (error) => {
+        if (error.status === 409) {
+          this.errorMessage = "⚠️ Conflit : Candidat déjà enregistré !";
+        } else {
+          this.errorMessage = "⚠️ Électeur introuvable !";
+        }
       }
     });
   }

@@ -46,7 +46,7 @@ export interface Candidats {
 export interface Parrainages {
   ElecteurID: string;
   CandidatID: string;
-  codeValidation: string;
+  CodeValidation: string;
 }
 
 export interface LoginData {
