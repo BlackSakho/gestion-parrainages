@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ParrainageService {
-  private apiUrl = 'http://localhost:8000/api'; // 🔗 URL de l'API Laravel
+  private apiUrl = 'https://parrainage.beinnetcorporate.com/api'; // 🔗 URL de l'API Laravel
 
   constructor(private http: HttpClient) {}
 

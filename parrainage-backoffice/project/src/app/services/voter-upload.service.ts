@@ -8,7 +8,7 @@ import { electeursProblematiques, ElecteursTemp } from '../models/voter';
     providedIn: 'root'
   })
   export class ImportationElecteursService {
-    private apiUrl = 'http://localhost:8000/api';
+    private apiUrl = 'https://parrainage.beinnetcorporate.com/api';
   
     constructor(
       private http: HttpClient,

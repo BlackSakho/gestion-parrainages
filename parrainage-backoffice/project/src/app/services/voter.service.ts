@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ElecteursService {
-  private apiUrl = 'http://localhost:8000/api/electeurs';
+  private apiUrl = 'https://parrainage.beinnetcorporate.com/electeurs';
 
   constructor(private http: HttpClient) { }
 
