@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 01, 2025 at 03:36 PM
+-- Generation Time: Mar 18, 2025 at 12:05 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -134,8 +134,9 @@ CREATE TABLE `candidats` (
 --
 
 INSERT INTO `candidats` (`id`, `NumeroCarteElecteur`, `Nom`, `Prenom`, `DateNaissance`, `Email`, `Telephone`, `PartiPolitique`, `Slogan`, `Photo`, `Couleurs`, `URL`, `CodeSecurite`, `created_at`, `updated_at`) VALUES
-(2, '123456789', 'Faye', 'Bassirou Diomaye', '1985-07-12', 'bassiroudf@email.com', '771234567', 'Partie de la Paix', 'Dox guir Diameu', 'https://maliactu.net/wp-content/uploads/2024/03/qui-est-bassirou-diomaye-faye-le-candidat-annonce-comme-futur-president-du-senegal-1024x703-1.jpeg', '#FF0000, #00FF00, #0000FF', 'https://parti-pur.com/', '85250', '2025-02-20 16:34:29', '2025-02-23 21:32:31'),
-(3, '455544678', 'Dia', 'Aliou Mamadou Dia', '1965-01-01', 'alioumamadou@email.com', '776555555', 'Parti de l\'unite et du rassemblement', 'Les Valeurs aux Services de la Nation !', 'https://th.bing.com/th/id/OIP.JwnjgK_53SwRiM-5BwvY_QHaFA?w=260&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7', '#00FF00, #FFFFFF', 'https://parti-pur.com/', '12340', '2025-02-20 17:46:18', '2025-02-20 17:46:18');
+(2, '123456789', 'Faye', 'Bassirou Diomaye', '1985-07-12', 'bassiroudf@email.com', '771234567', 'Partie de la Paix', 'Dox guir Diameu', 'https://maliactu.net/wp-content/uploads/2024/03/qui-est-bassirou-diomaye-faye-le-candidat-annonce-comme-futur-president-du-senegal-1024x703-1.jpeg', ' #0000FF', 'https://parti-pur.com/', '22512', '2025-02-20 16:34:29', '2025-03-18 06:59:57'),
+(3, '455544678', 'Dia', 'Aliou Mamadou', '1965-01-01', 'alioumamadou@email.com', '776555555', 'Parti de l\'unite et du rassemblement', 'Les Valeurs aux Services de la Nation !', 'https://th.bing.com/th/id/OIP.JwnjgK_53SwRiM-5BwvY_QHaFA?w=260&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7', '#0FFFFF', 'https://parti-pur.com/', '12340', '2025-02-20 17:46:18', '2025-02-20 17:46:18'),
+(5, '888222666', 'Ba', 'Amadou', '1970-03-30', 'taibasakho3@gmail.com', '+221 707348214', 'APR', 'Alliance pour la republique', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Mamadou_Ba_au_EITI_Global_Conference_%28cropped%29.jpg/220px-Mamadou_Ba_au_EITI_Global_Conference_%28cropped%29.jpg', '#FF0000', 'https://fr.wikipedia.org/wiki/Amadou_Ba_(1961)', '73214', '2025-03-18 02:15:53', '2025-03-18 07:00:16');
 
 -- --------------------------------------------------------
 
@@ -150,8 +151,6 @@ CREATE TABLE `electeurs` (
   `Prenom` varchar(50) NOT NULL,
   `DateNaissance` date NOT NULL,
   `BureauVote` varchar(50) NOT NULL,
-  `Email` varchar(191) NOT NULL,
-  `Telephone` varchar(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `lieuDeNaissance` varchar(100) NOT NULL,
   `Sexe` enum('Masculin','Féminin') NOT NULL,
@@ -162,10 +161,16 @@ CREATE TABLE `electeurs` (
 -- Dumping data for table `electeurs`
 --
 
-INSERT INTO `electeurs` (`NumeroCarteElecteur`, `CIN`, `Nom`, `Prenom`, `DateNaissance`, `BureauVote`, `Email`, `Telephone`, `created_at`, `lieuDeNaissance`, `Sexe`, `Commune`) VALUES
-('123456789', '1234567890123', 'Faye', 'Bassirou Diomaye', '1985-07-12', 'Bureau 12', 'bassiroudf@email.com', '771234567', '2025-02-11 13:46:38', 'Camberene', 'Masculin', 'Camberene'),
-('455544678', '0099887768895', 'Dia', 'Aliou Mamadou Dia', '1965-01-01', 'Bureau 1', 'alioumamadou@email.com', '776555555', '2025-02-20 17:37:18', 'Camberene', 'Masculin', 'Camberene'),
-('888222666', '1945656777773', 'Sakho', 'Taiba', '2003-03-30', '5', 'taibasakho3@gmail.com', '707348214', '2025-02-21 15:22:52', 'Camberene', 'Masculin', 'Camberene');
+INSERT INTO `electeurs` (`NumeroCarteElecteur`, `CIN`, `Nom`, `Prenom`, `DateNaissance`, `BureauVote`, `created_at`, `lieuDeNaissance`, `Sexe`, `Commune`) VALUES
+('000111444', '3214567890987', 'DIOP', 'Aliou', '1985-04-23', 'Bureau 1', '2025-03-18 08:21:57', 'Dakar', 'Masculin', 'Dakar'),
+('111222333', '111111222222', 'Sakho', 'Rockaya', '2003-03-10', '4', '2025-03-02 09:37:22', 'Camberene', 'Féminin', 'Camberene'),
+('123456789', '1234567890123', 'Faye', 'Bassirou Diomaye', '1985-07-12', 'Bureau 12', '2025-02-11 13:46:38', 'Camberene', 'Masculin', 'Camberene'),
+('455544678', '0099887768895', 'Dia', 'Aliou Mamadou Dia', '1965-01-01', 'Bureau 1', '2025-02-20 17:37:18', 'Camberene', 'Masculin', 'Camberene'),
+('456789123', '4567891230124', 'BA', 'Mamadou', '1982-11-30', 'Bureau 3', '2025-03-18 08:21:57', 'Kaolack', 'Masculin', 'Kaolack'),
+('567891234', '5678912340123', 'SY', 'Fatou', '1995-02-12', 'Bureau 4', '2025-03-18 08:21:57', 'St-Louis', 'Féminin', 'St-Louis'),
+('678912345', '6789123450123', 'FALL', 'Moussa', '1987-06-25', 'Bureau 5', '2025-03-18 08:21:57', 'Ziguinchor', 'Masculin', 'Ziguinchor'),
+('888222666', '1945656777773', 'Ba', 'Amadou', '1970-03-30', '5', '2025-02-21 15:22:52', 'Camberene', 'Masculin', 'Camberene'),
+('987654321', '9876543210123', 'NDIAYE', 'Awa', '1990-07-15', 'Bureau 2', '2025-03-18 08:21:57', 'Thies', 'Féminin', 'Thies');
 
 -- --------------------------------------------------------
 
@@ -182,30 +187,6 @@ CREATE TABLE `electeursproblematiques` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `electeursproblematiques`
---
-
-INSERT INTO `electeursproblematiques` (`id`, `IDFichier`, `NumeroCarteElecteur`, `CIN`, `NatureProbleme`, `created_at`, `updated_at`) VALUES
-(59, 45, '770001122', 'XY770001', 'CIN invalide (doit contenir 13 ou 14 chiffres)', '2025-02-22 01:08:31', '2025-02-22 01:08:31'),
-(60, 45, '770002233', 'XY770002', 'CIN invalide (doit contenir 13 ou 14 chiffres); Nom ou prénom contient des accents', '2025-02-22 01:08:31', '2025-02-22 01:08:31'),
-(61, 45, '770003344', 'XY770003', 'CIN invalide (doit contenir 13 ou 14 chiffres)', '2025-02-22 01:08:31', '2025-02-22 01:08:31'),
-(62, 45, '770004455', 'XY770004', 'CIN invalide (doit contenir 13 ou 14 chiffres)', '2025-02-22 01:08:31', '2025-02-22 01:08:31'),
-(63, 45, '770005566', 'XY770005', 'CIN invalide (doit contenir 13 ou 14 chiffres)', '2025-02-22 01:08:31', '2025-02-22 01:08:31'),
-(64, 45, '770006677', 'XY770006', 'CIN invalide (doit contenir 13 ou 14 chiffres)', '2025-02-22 01:08:31', '2025-02-22 01:08:31'),
-(65, 45, '770007788', 'XY770007', 'CIN invalide (doit contenir 13 ou 14 chiffres); Nom ou prénom contient des accents', '2025-02-22 01:08:31', '2025-02-22 01:08:31'),
-(66, 45, '770008899', 'XY770008', 'CIN invalide (doit contenir 13 ou 14 chiffres); Nom ou prénom contient des accents', '2025-02-22 01:08:31', '2025-02-22 01:08:31'),
-(67, 45, '770009900', 'XY770009', 'CIN invalide (doit contenir 13 ou 14 chiffres)', '2025-02-22 01:08:31', '2025-02-22 01:08:31'),
-(68, 45, '770010011', 'XY770010', 'CIN invalide (doit contenir 13 ou 14 chiffres); Nom ou prénom contient des accents', '2025-02-22 01:08:31', '2025-02-22 01:08:31'),
-(69, 46, '111223344', 'JK111223', 'CIN invalide (doit contenir 13 ou 14 chiffres)', '2025-02-23 21:31:37', '2025-02-23 21:31:37'),
-(70, 46, '222334455', 'KL222334', 'CIN invalide (doit contenir 13 ou 14 chiffres)', '2025-02-23 21:31:37', '2025-02-23 21:31:37'),
-(71, 46, '333445566', 'LM333445', 'CIN invalide (doit contenir 13 ou 14 chiffres); Nom ou prénom contient des accents', '2025-02-23 21:31:37', '2025-02-23 21:31:37'),
-(72, 46, '444556677', 'MN444556', 'CIN invalide (doit contenir 13 ou 14 chiffres)', '2025-02-23 21:31:37', '2025-02-23 21:31:37'),
-(73, 46, '555667788', 'OP555667', 'CIN invalide (doit contenir 13 ou 14 chiffres); Nom ou prénom contient des accents', '2025-02-23 21:31:37', '2025-02-23 21:31:37'),
-(74, 46, '666778899', 'PQ666778', 'CIN invalide (doit contenir 13 ou 14 chiffres); Nom ou prénom contient des accents', '2025-02-23 21:31:37', '2025-02-23 21:31:37'),
-(75, 46, '777889900', 'QR777889', 'CIN invalide (doit contenir 13 ou 14 chiffres)', '2025-02-23 21:31:37', '2025-02-23 21:31:37'),
-(76, 46, '888990011', 'RS888990', 'CIN invalide (doit contenir 13 ou 14 chiffres)', '2025-02-23 21:31:37', '2025-02-23 21:31:37');
 
 -- --------------------------------------------------------
 
@@ -228,30 +209,6 @@ CREATE TABLE `electeurtemps` (
   `lieuDeNaissance` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `Sexe` enum('Masculin','Féminin') COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `electeurtemps`
---
-
-INSERT INTO `electeurtemps` (`id`, `NumeroCarteElecteur`, `CIN`, `Nom`, `Prenom`, `DateNaissance`, `Commune`, `BureauVote`, `IDFichier`, `created_at`, `updated_at`, `lieuDeNaissance`, `Sexe`) VALUES
-(184, '770001122', 'XY770001', 'Amandine', 'Petit', '1990-05-10', 'Avignon', 'Bureau Z', 45, '2025-02-22 01:08:31', '2025-02-22 01:08:31', 'Avignon', 'Féminin'),
-(185, '770002233', 'XY770002', 'Rémi', 'Leclerc', '1988-02-20', 'Toulouse', 'Bureau AA', 45, '2025-02-22 01:08:31', '2025-02-22 01:08:31', 'Toulouse', 'Masculin'),
-(186, '770003344', 'XY770003', 'Eva', 'Martin', '1995-07-15', 'Nice', 'Bureau BB', 45, '2025-02-22 01:08:31', '2025-02-22 01:08:31', 'Nice', 'Féminin'),
-(187, '770004455', 'XY770004', 'Julien', 'Moreau', '1983-09-30', 'Lyon', 'Bureau CC', 45, '2025-02-22 01:08:31', '2025-02-22 01:08:31', 'Lyon', 'Masculin'),
-(188, '770005566', 'XY770005', 'Sophie', 'Faure', '1991-11-25', 'Rennes', 'Bureau DD', 45, '2025-02-22 01:08:31', '2025-02-22 01:08:31', 'Rennes', 'Féminin'),
-(189, '770006677', 'XY770006', 'Maxime', 'Simon', '1986-04-08', 'Bordeaux', 'Bureau EE', 45, '2025-02-22 01:08:31', '2025-02-22 01:08:31', 'Bordeaux', 'Masculin'),
-(190, '770007788', 'XY770007', 'Léa', 'Dupont', '1994-01-17', 'Strasbourg', 'Bureau FF', 45, '2025-02-22 01:08:31', '2025-02-22 01:08:31', 'Strasbourg', 'Féminin'),
-(191, '770008899', 'XY770008', 'Théo', 'Roussel', '1992-08-12', 'Marseille', 'Bureau GG', 45, '2025-02-22 01:08:31', '2025-02-22 01:08:31', 'Marseille', 'Masculin'),
-(192, '770009900', 'XY770009', 'Clara', 'Noir', '1993-06-05', 'Montpellier', 'Bureau HH', 45, '2025-02-22 01:08:31', '2025-02-22 01:08:31', 'Montpellier', 'Féminin'),
-(193, '770010011', 'XY770010', 'Léo', 'Blanc', '1989-03-22', 'Clermont-Ferrand', 'Bureau II', 45, '2025-02-22 01:08:31', '2025-02-22 01:08:31', 'Clermont-Ferrand', 'Masculin'),
-(194, '111223344', 'JK111223', 'Alice', 'Bernard', '1982-11-10', 'Nantes', 'Bureau F', 46, '2025-02-23 21:31:37', '2025-02-23 21:31:37', 'Nantes', 'Féminin'),
-(195, '222334455', 'KL222334', 'Boby', 'Martin', '1975-03-22', 'Bordeaux', 'Bureau G', 46, '2025-02-23 21:31:37', '2025-02-23 21:31:37', 'Bordeaux', 'Masculin'),
-(196, '333445566', 'LM333445', 'Chloé', 'Leroy', '1998-07-30', 'Strasbourg', 'Bureau H', 46, '2025-02-23 21:31:37', '2025-02-23 21:31:37', 'Strasbourg', 'Féminin'),
-(197, '444556677', 'MN444556', 'Damien', 'Moreau', '1990-02-14', 'Lille', 'Bureau I', 46, '2025-02-23 21:31:37', '2025-02-23 21:31:37', 'Lille', 'Masculin'),
-(198, '555667788', 'OP555667', 'Émilie', 'Blanc', '1980-04-05', 'Montpellier', 'Bureau J', 46, '2025-02-23 21:31:37', '2025-02-23 21:31:37', 'Montpellier', 'Féminin'),
-(199, '666778899', 'PQ666778', 'François', 'Simon', '1995-09-21', 'Rennes', 'Bureau K', 46, '2025-02-23 21:31:37', '2025-02-23 21:31:37', 'Rennes', 'Masculin'),
-(200, '777889900', 'QR777889', 'Gabrielle', 'Noir', '1993-12-01', 'Reims', 'Bureau L', 46, '2025-02-23 21:31:37', '2025-02-23 21:31:37', 'Reims', 'Féminin'),
-(201, '888990011', 'RS888990', 'Hugo', 'Durand', '1987-05-12', 'Clermont-Ferrand', 'Bureau M', 46, '2025-02-23 21:31:37', '2025-02-23 21:31:37', 'Clermont-Ferrand', 'Masculin');
 
 -- --------------------------------------------------------
 
@@ -303,7 +260,9 @@ INSERT INTO `fichierelectoral` (`id`, `NomFichier`, `Checksum`, `Statut`, `EtatU
 (42, '1740147875_electeur3.csv', '75f5b55ced260922c6621d396d43ba499b43a3ab2efbcf57f9e3c61194e3135d', 'En attente', 1, '2025-02-21 14:24:35', '2025-02-21 14:24:35'),
 (44, '1740148671_electeur4.csv', '5d0a7966325cf513589cbdbb07f8f297b5056081acc23fc140b24ce88967d131', 'En attente', 1, '2025-02-21 14:37:51', '2025-02-21 14:37:51'),
 (45, '1740186510_electeur6.csv', 'e35cb94809c313f33e980667667b547653c71ad80255a54b676368bb3d8852ed', 'En attente', 1, '2025-02-22 01:08:31', '2025-02-22 01:08:31'),
-(46, '1740346295_electeur4.csv', '5d0a7966325cf513589cbdbb07f8f297b5056081acc23fc140b24ce88967d131', 'En attente', 1, '2025-02-23 21:31:36', '2025-02-23 21:31:36');
+(46, '1740346295_electeur4.csv', '5d0a7966325cf513589cbdbb07f8f297b5056081acc23fc140b24ce88967d131', 'En attente', 1, '2025-02-23 21:31:36', '2025-02-23 21:31:36'),
+(47, '1742259075_electeur9.csv', '8089d6fb34497c0e483326ecfc22fa8a7effd443060f24d4e254fa54cca9aa4c', 'En attente', 1, '2025-03-18 00:51:16', '2025-03-18 00:51:16'),
+(48, '1742259655_electeur3.csv', '75f5b55ced260922c6621d396d43ba499b43a3ab2efbcf57f9e3c61194e3135d', 'En attente', 1, '2025-03-18 01:00:55', '2025-03-18 01:00:55');
 
 -- --------------------------------------------------------
 
@@ -433,6 +392,8 @@ CREATE TABLE `parrains` (
   `NumeroCarteElecteur` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `CIN` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `Nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Prenom` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `DateNaissance` date DEFAULT NULL,
   `BureauVote` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `Email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `Telephone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -446,8 +407,9 @@ CREATE TABLE `parrains` (
 -- Dumping data for table `parrains`
 --
 
-INSERT INTO `parrains` (`id`, `NumeroCarteElecteur`, `CIN`, `Nom`, `BureauVote`, `Email`, `Telephone`, `CodeAuth`, `CodeExpiration`, `created_at`, `updated_at`) VALUES
-(3, '888222666', '1945656777773', 'Sakho', '5', 'taibasakho3@gmail.com', '+221 707348214', '861079', '2025-03-01 13:16:07', '2025-03-01 00:06:07', '2025-03-01 00:06:07');
+INSERT INTO `parrains` (`id`, `NumeroCarteElecteur`, `CIN`, `Nom`, `Prenom`, `DateNaissance`, `BureauVote`, `Email`, `Telephone`, `CodeAuth`, `CodeExpiration`, `created_at`, `updated_at`) VALUES
+(3, '888222666', '1945656777773', 'Ba', 'Amadou', '1970-03-30', '5', 'taibasakho3@gmail.com', '+221 707348214', '861079', '2025-03-20 13:16:07', '2025-03-01 00:06:07', '2025-03-01 00:06:07'),
+(4, '111222333', '111111222222', 'Sakho', 'Rockaya', '2003-03-10', '4', 'rockaya@gmail.com', '771112223', '228824', '2025-03-02 19:26:30', '2025-03-02 19:16:30', '2025-03-02 19:16:30');
 
 -- --------------------------------------------------------
 
@@ -508,7 +470,9 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (5, 'App\\Models\\User', 3, 'authToken', 'fea3600b17e00f7714806df24fcb45ece481b2486e3805bf6e91567cdb048b90', '[\"*\"]', NULL, NULL, '2025-02-16 14:03:50', '2025-02-16 14:03:50'),
-(48, 'App\\Models\\User', 1, 'authToken', 'ace97c437990f02bc074fd40bb81c13a65aabfce2f3aaa918bfbfd37bff2224e', '[\"*\"]', NULL, NULL, '2025-03-01 14:41:31', '2025-03-01 14:41:31');
+(126, 'App\\Models\\Parrains', 4, 'ParrainToken', '8e31caaa27e6ea1ff3cdbc78ddf8e09b30b806e30227ca5d1c7ef0bc6446bdd2', '[\"parrain\"]', NULL, NULL, '2025-03-03 12:31:01', '2025-03-03 12:31:01'),
+(155, 'App\\Models\\User', 1, 'authToken', 'a459d3e3b2573a3bd662d826c91d3ff16db45769332a89b052cea19103e3bd0f', '[\"*\"]', '2025-03-18 08:25:07', NULL, '2025-03-18 07:50:51', '2025-03-18 08:25:07'),
+(156, 'App\\Models\\Parrains', 3, 'ParrainToken', 'e8dcdf0ba754f22b6598bde94834adb662a488db2271a544adb716828b1c85c9', '[\"parrain\"]', '2025-03-18 10:18:54', NULL, '2025-03-18 08:37:16', '2025-03-18 10:18:54');
 
 -- --------------------------------------------------------
 
@@ -556,9 +520,7 @@ ALTER TABLE `candidats`
 --
 ALTER TABLE `electeurs`
   ADD PRIMARY KEY (`NumeroCarteElecteur`),
-  ADD UNIQUE KEY `CIN` (`CIN`),
-  ADD UNIQUE KEY `Email` (`Email`),
-  ADD UNIQUE KEY `Telephone` (`Telephone`);
+  ADD UNIQUE KEY `CIN` (`CIN`);
 
 --
 -- Indexes for table `electeursproblematiques`
@@ -657,19 +619,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `candidats`
 --
 ALTER TABLE `candidats`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `electeursproblematiques`
 --
 ALTER TABLE `electeursproblematiques`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `electeurtemps`
 --
 ALTER TABLE `electeurtemps`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -681,7 +643,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `fichierelectoral`
 --
 ALTER TABLE `fichierelectoral`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `historiqueupload`
@@ -705,7 +667,7 @@ ALTER TABLE `parrainages`
 -- AUTO_INCREMENT for table `parrains`
 --
 ALTER TABLE `parrains`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `periodeparrainage`
@@ -717,7 +679,7 @@ ALTER TABLE `periodeparrainage`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
 
 --
 -- AUTO_INCREMENT for table `users`

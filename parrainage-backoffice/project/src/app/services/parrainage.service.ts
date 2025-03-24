@@ -29,7 +29,7 @@ export class ParrainageService {
   }
 
   /**
-   * 📌 2️⃣ Récupérer la période de parrainage actuelle
+   * Récupérer la période de parrainage actuelle
    * @returns Observable avec les détails de la période active
    */
   getPeriode(): Observable<any> {
@@ -37,7 +37,7 @@ export class ParrainageService {
   }
 
   /**
-   * 📌 3️⃣ Vérifier et activer/désactiver automatiquement la période
+   *  Vérifier et activer/désactiver automatiquement la période
    * @returns Observable avec l'état de la période
    */
   verifierActivation(): Observable<any> {
