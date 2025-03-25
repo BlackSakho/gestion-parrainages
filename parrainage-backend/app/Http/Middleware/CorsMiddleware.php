@@ -17,7 +17,7 @@ class CorsMiddleware
     {
         $responce = $next($request);
 
-        $responce->header('Access-Control-Allow-Origin', 'https://gestion-parrainage.netlify.app, https://parrainage-sn.netlify.app');
+        $responce->header('Access-Control-Allow-Origin', 'https://parrainage-backoffice-one.vercel.app');
         $responce->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
         $responce->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 

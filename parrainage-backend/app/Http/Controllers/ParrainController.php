@@ -44,6 +44,12 @@ class ParrainController extends Controller
      if (!$electeur) {
          return response()->json(['message' => 'Électeur introuvable ❌'], 404);
      }
+     
+      // Vérifier le code d'authentification
+      if ($parrain->CodeAuth !== $request->CodeAuth || Carbon::now()->greaterThan($parrain->CodeExpiration)) {
+        return response()->json(['message' => 'Code d\'authentification invalide ou expiré ❌'], 401);
+    }
+
 
 
         // Supprimer les anciens tokens avant d'en créer un nouveau

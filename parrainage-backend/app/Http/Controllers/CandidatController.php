@@ -189,7 +189,7 @@ class CandidatController extends Controller
 
         return response()->json($stats);
     }
-    
+
 
 
 }
